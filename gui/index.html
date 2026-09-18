@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ANIMUS // Abstergo SaveVault - Memory Matrix, Cloud & Telemetry</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Fondo Holográfico Animus -->
+  <div class="animus-bg-grid"></div>
+  <div class="animus-scanline"></div>
+
+  <div class="app-viewport">
+    <!-- Header Power Green System -->
+    <header class="abstergo-header">
+      <div class="header-main-row">
+        <div class="brand-block">
+          <div class="abstergo-logo" title="Power Green SaveVault - GPU Precision Engine">
+            <!-- Hardware Silicon Die Icon -->
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#76b900" stroke-width="2.2">
+              <rect x="4" y="4" width="16" height="16" rx="1" />
+              <rect x="9" y="9" width="6" height="6" fill="#76b900" />
+              <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3" />
+            </svg>
+          </div>
+
+          <div class="brand-text">
+            <div class="brand-topline">
+              <span class="corp-name">NVIDIA POWER GREEN // ARCHITECTURE</span>
+              <span class="sys-version">VER 4.2 // HIGH-CONTRAST</span>
+            </div>
+            <h1 class="brand-title">ANIMUS // SAVEVAULT</h1>
+          </div>
+        </div>
+
+
+        <!-- Navegación por Pestañas Principales HUD -->
+        <nav class="hud-nav-tabs">
+          <button class="nav-tab active" data-tab="memory">
+            <span class="tab-index">01</span> MATRIZ DE MEMORIA
+          </button>
+          <button class="nav-tab" data-tab="analytics" id="tab-btn-analytics">
+            <span class="tab-index">02</span> TELEMETRÍA & MÉTRICAS
+          </button>
+          <button class="nav-tab" data-tab="cloud" id="tab-btn-cloud">
+            <span class="tab-index">03</span> NUBE & AUTOMATIZACIÓN
+          </button>
+        </nav>
+
+        <!-- Acciones Rápidas Header -->
+        <div class="header-controls">
+          <button id="btn-restore-master" class="hud-btn hud-btn-cyan" title="Restaurar paquete maestro consolidado">
+            <span class="hud-bracket">[</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span class="hud-btn-text">RESTAURAR MATRIZ</span>
+            <span class="hud-bracket">]</span>
+          </button>
+
+          <button id="btn-open-backups-folder" class="hud-btn hud-btn-outline" title="Ver archivos de respaldo">
+            <span class="hud-bracket">[</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <span class="hud-btn-text">RESPALDOS (<span id="backups-count">0</span>)</span>
+            <span class="hud-bracket">]</span>
+          </button>
+
+          <button id="btn-scan" class="hud-btn hud-btn-primary" title="Escanear todas las plataformas">
+            <span class="hud-bracket">[</span>
+            <svg id="scan-spinner" class="spin-icon hidden" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9" stroke-dasharray="28" stroke-dashoffset="10"/></svg>
+            <svg id="scan-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
+            <span id="scan-btn-text" class="hud-btn-text">SINCRONIZAR</span>
+            <span class="hud-bracket">]</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Telemetría HUD Rápida -->
+      <div class="hud-telemetry">
+        <div class="telemetry-chip">
+          <span class="telemetry-label">BLOQUES:</span>
+          <span class="telemetry-value" id="stat-games">0</span>
+        </div>
+        <div class="telemetry-divider"></div>
+        <div class="telemetry-chip">
+          <span class="telemetry-label">VOLUMEN:</span>
+          <span class="telemetry-value text-cyan" id="stat-size">0 MB</span>
+        </div>
+        <div class="telemetry-divider"></div>
+        <div class="telemetry-chip">
+          <span class="telemetry-label">ARCHIVOS:</span>
+          <span class="telemetry-value" id="stat-files">0</span>
+        </div>
+        <div class="telemetry-divider"></div>
+        <div class="telemetry-chip">
+          <span class="telemetry-label">NUBE:</span>
+          <span class="telemetry-value text-cyan" id="stat-cloud-status">SIN VINCULAR</span>
+        </div>
+        <div class="telemetry-divider"></div>
+        <div class="telemetry-chip telemetry-status">
+          <span class="status-indicator"></span>
+          <span class="telemetry-label">ESTADO:</span>
+          <span class="telemetry-value text-green">EN LÍNEA</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ==============================================================
+         VISTA 1: MATRIZ DE MEMORIA (JUEGOS, FILTROS Y RESPALDO MAESTRO)
+         ============================================================== -->
+    <section id="view-memory" class="view-panel active">
+      <div class="filter-console">
+        <div class="search-bar-wrap">
+          <div class="search-terminal">
+            <span class="prompt-symbol">&gt;&gt;</span>
+            <input type="text" id="search-input" placeholder="FILTRAR POR JUEGO, APPDATA, REPACK, PLATAFORMA O EXTENSIÓN (.SAV, .SL2)..." spellcheck="false" />
+            <button id="search-clear" class="btn-clear hidden">&times;</button>
+          </div>
+        </div>
+
+        <div class="platform-filters" id="filter-chips">
+          <button class="hud-chip active" data-filter="all">TODOS [<span id="count-all">0</span>]</button>
+          <button class="hud-chip" data-filter="epic">EPIC GAMES [<span id="count-epic">0</span>]</button>
+          <button class="hud-chip" data-filter="steam">STEAM [<span id="count-steam">0</span>]</button>
+          <button class="hud-chip" data-filter="ea">EA APP [<span id="count-ea">0</span>]</button>
+          <button class="hud-chip" data-filter="ubi">UBISOFT [<span id="count-ubi">0</span>]</button>
+          <button class="hud-chip" data-filter="gog">GOG [<span id="count-gog">0</span>]</button>
+          <button class="hud-chip" data-filter="xbox">XBOX [<span id="count-xbox">0</span>]</button>
+          <button class="hud-chip" data-filter="repack">REPACKS / EMULADORES [<span id="count-repack">0</span>]</button>
+          <button class="hud-chip" data-filter="savedgames">SAVED GAMES [<span id="count-savedgames">0</span>]</button>
+          <button class="hud-chip" data-filter="docs">DOCUMENTOS [<span id="count-docs">0</span>]</button>
+          <button class="hud-chip" data-filter="indie">UNITY / INDIE [<span id="count-indie">0</span>]</button>
+        </div>
+
+        <div class="batch-console">
+          <div class="batch-left-actions">
+            <button id="btn-select-all" class="batch-btn">
+              <span class="hud-check">☑</span> SELECCIONAR VISIBLES
+            </button>
+            <button id="btn-deselect-all" class="batch-btn">
+              <span class="hud-check">☐</span> DESMARCAR
+            </button>
+            <span class="batch-counter" id="batch-selection-info">0 BLOQUES MARCADOS</span>
+          </div>
+
+          <div class="batch-right-actions">
+            <button id="btn-master-backup" class="hud-btn hud-btn-master" disabled>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+              CREAR PAQUETE MAESTRO (.ZIP)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <main class="memory-grid-wrap">
+        <div id="loading-state" class="state-container hidden">
+          <div class="animus-loader">
+            <div class="dna-ring"></div>
+            <div class="dna-core"></div>
+          </div>
+          <p class="state-title">SINCRONIZANDO CON LOS BANCOS DE MEMORIA...</p>
+          <span class="state-hint">Escaneando Steam Cloud, Repacks (Goldberg/RUNE/CODEX), AppData y Saved Games</span>
+        </div>
+
+        <div id="empty-state" class="state-container hidden">
+          <div class="empty-icon">▵</div>
+          <h3>NO SE DETECTARON BLOQUES DE MEMORIA CON EL CRITERIO ACTUAL</h3>
+          <p>Ajusta el filtro de búsqueda o pulsa "SINCRONIZAR" para volver a examinar el sistema.</p>
+        </div>
+
+        <div id="games-grid" class="memory-grid"></div>
+      </main>
+    </section>
+
+    <!-- ==============================================================
+         VISTA 2: TELEMETRÍA Y ESTADÍSTICAS ("ANIMUS MEMORY ANALYTICS")
+         ============================================================== -->
+    <section id="view-analytics" class="view-panel hidden">
+      <div class="analytics-layout">
+        <!-- Tarjeta 1: Top Almacenamiento -->
+        <div class="hud-widget">
+          <div class="widget-header">
+            <span class="widget-icon">⚡</span>
+            <h3>TOP CONSUMO DE ALMACENAMIENTO</h3>
+          </div>
+          <div class="widget-body" id="analytics-top-storage">
+            <!-- Renderizado dinámico -->
+          </div>
+        </div>
+
+        <!-- Tarjeta 2: Actividad Reciente / Jugados -->
+        <div class="hud-widget">
+          <div class="widget-header">
+            <span class="widget-icon">⏱</span>
+            <h3>ACTIVIDAD DE GUARDADO RECIENTE</h3>
+          </div>
+          <div class="widget-body" id="analytics-recent-activity">
+            <!-- Renderizado dinámico -->
+          </div>
+        </div>
+
+        <!-- Tarjeta 3: Distribución por Plataformas -->
+        <div class="hud-widget">
+          <div class="widget-header">
+            <span class="widget-icon">⌬</span>
+            <h3>DISTRIBUCIÓN POR PLATAFORMA / SECTOR</h3>
+          </div>
+          <div class="widget-body" id="analytics-platform-dist">
+            <!-- Renderizado dinámico -->
+          </div>
+        </div>
+
+        <!-- Tarjeta 4: Desglose de Extensiones -->
+        <div class="hud-widget">
+          <div class="widget-header">
+            <span class="widget-icon">▤</span>
+            <h3>FORMATOS DE ARCHIVO DETECTADOS</h3>
+          </div>
+          <div class="widget-body" id="analytics-extensions">
+            <!-- Renderizado dinámico -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================================
+         VISTA 3: NUBE & RESPALDOS AUTOMÁTICOS
+         ============================================================== -->
+    <section id="view-cloud" class="view-panel hidden">
+      <div class="cloud-scheduler-layout">
+        <!-- Módulo Nube -->
+        <div class="hud-widget">
+          <div class="widget-header">
+            <span class="widget-icon">☁</span>
+            <h3>SINCRONIZACIÓN CON ALMACENAMIENTO EN LA NUBE</h3>
+          </div>
+          <div class="widget-body">
+            <p class="config-desc">Copia automáticamente tus respaldos individuales y maestros a carpetas de la nube sincronizadas.</p>
+
+            <div class="cloud-providers-list" id="cloud-providers-container">
+              <!-- Renderizado dinámico de proveedores de nube disponibles -->
+            </div>
+
+            <div class="custom-folder-row">
+              <span class="config-label">DESTINO PERSONALIZADO (NAS / DISCO):</span>
+              <div class="input-with-btn">
+                <input type="text" id="custom-cloud-input" placeholder="C:\Ruta\Hacia\Tu\Nube" readonly />
+                <button id="btn-browse-cloud-folder" class="hud-btn hud-btn-outline">EXPLORAR</button>
+              </div>
+            </div>
+
+            <div class="cloud-actions-row">
+              <button id="btn-sync-cloud-now" class="hud-btn hud-btn-cyan">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+                SINCRONIZAR A LA NUBE AHORA
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Módulo Programador Automático -->
+        <div class="hud-widget">
+          <div class="widget-header">
+            <span class="widget-icon">⏳</span>
+            <h3>PROGRAMADOR DE RESPALDOS AUTOMÁTICOS</h3>
+          </div>
+          <div class="widget-body">
+            <div class="toggle-row">
+              <div>
+                <h4>RESPALDO SILENCIOSO EN SEGUNDO PLANO</h4>
+                <p class="config-desc">Ejecuta copias de seguridad maestras periódicas mientras la aplicación está abierta.</p>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="scheduler-toggle" />
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="interval-selection-row">
+              <span class="config-label">FRECUENCIA DE SINCRONIZACIÓN:</span>
+              <div class="interval-chips" id="interval-chips">
+                <button class="interval-chip" data-hours="1">CADA 1 HORA</button>
+                <button class="interval-chip active" data-hours="6">CADA 6 HORAS</button>
+                <button class="interval-chip" data-hours="12">CADA 12 HORAS</button>
+                <button class="interval-chip" data-hours="24">DIARIO (24 HORAS)</button>
+              </div>
+            </div>
+
+            <div class="scheduler-status-box">
+              <div class="status-meta-row">
+                <span>ÚLTIMA EJECUCIÓN:</span>
+                <strong id="scheduler-last-run">Sin ejecuciones</strong>
+              </div>
+              <div class="status-meta-row">
+                <span>ESTADO:</span>
+                <strong id="scheduler-status-text" class="text-cyan">En espera</strong>
+              </div>
+            </div>
+
+            <div class="scheduler-actions-row">
+              <button id="btn-save-scheduler" class="hud-btn hud-btn-primary">GUARDAR CONFIGURACIÓN</button>
+              <button id="btn-trigger-auto-now" class="hud-btn hud-btn-outline">PROBAR RESPALDO AHORA</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer HUD -->
+    <footer class="abstergo-footer">
+      <div class="footer-left">
+        <span class="security-level">ESTADO: <strong>ESTABLE</strong></span>
+        <span class="footer-sep">//</span>
+        <span>PORTABILIDAD: <strong>MANIFEST.JSON V1.0</strong></span>
+      </div>
+      <div class="footer-right">
+        <span>ABSTERGO ENTERTAINMENT RESEARCH LABS</span>
+      </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- Modal Historial de Respaldos -->
+    <div id="backups-modal" class="modal-backdrop hidden">
+      <div class="hud-modal-box">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <span class="modal-corner">◤</span>
+            <h2>HISTORIAL DE COPIAS MAESTRAS & INDIVIDUALES</h2>
+          </div>
+          <button id="modal-close" class="btn-icon-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="backups-modal-top-bar">
+            <p class="modal-desc">Almacenamiento local en <code>Mis Documentos\SavegameBackups</code>.</p>
+            <input type="text" id="backups-filter-input" class="backups-search-input" placeholder="Filtrar por juego o archivo..." spellcheck="false" />
+          </div>
+          <div id="backups-list" class="backups-list"></div>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-modal-open-folder" class="hud-btn hud-btn-outline">ABRIR DIRECTORIO</button>
+          <button id="btn-modal-close" class="hud-btn hud-btn-primary">CERRAR</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Resultado de Restauración -->
+    <div id="restore-result-modal" class="modal-backdrop hidden">
+      <div class="hud-modal-box">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <span class="modal-corner text-cyan">◤</span>
+            <h2>EXTRACCIÓN Y RESTAURACIÓN DE MEMORIA COMPLETADA</h2>
+          </div>
+          <button id="restore-modal-close" class="btn-icon-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-desc" id="restore-summary-text">Todos los bloques fueron sincronizados con éxito a sus ubicaciones en este host.</p>
+          <div id="restore-games-list" class="backups-list"></div>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-restore-modal-close" class="hud-btn hud-btn-primary">LISTO</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Historial de Versiones y Reversión de Partidas -->
+    <div id="version-history-modal" class="modal-backdrop hidden">
+      <div class="hud-modal-box version-modal-box">
+        <div id="version-modal-hero" class="version-modal-hero-banner hidden">
+          <img id="version-modal-hero-img" class="version-modal-hero-art" src="" alt="Hero Art" />
+          <div class="version-modal-hero-overlay"></div>
+        </div>
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <span class="modal-corner text-cyan">◤</span>
+            <div>
+              <h2 id="version-modal-game-title">HISTORIAL DE VERSIONES // JUEGO</h2>
+              <span id="version-modal-game-path" class="version-modal-sub">Ruta de memoria</span>
+            </div>
+          </div>
+          <button id="version-modal-close" class="btn-icon-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <!-- Formulario para crear un nuevo punto de restauración -->
+          <div class="version-create-box">
+            <div class="version-create-inputs">
+              <input type="text" id="input-version-note" placeholder="Nota descriptiva (ej: Antes de Malenia, Nivel 50, Capítulo 4...)" spellcheck="false" />
+              <button id="btn-create-version-snapshot" class="hud-btn hud-btn-primary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                <span>GUARDAR VERSIÓN ACTUAL</span>
+              </button>
+            </div>
+            <p class="version-create-hint">Guarda el estado presente de tu partida. Podrás revertir a esta versión en cualquier momento.</p>
+          </div>
+
+          <!-- Encabezado de la lista cronológica -->
+          <div class="version-timeline-header">
+            <span class="timeline-title">LÍNEA TEMPORAL DE PUNTOS DE RESTAURACIÓN</span>
+            <span id="version-count-label" class="version-count-badge">0 VERSIONES REGISTRADAS</span>
+          </div>
+
+          <!-- Contenedor con scroll para las versiones -->
+          <div id="version-timeline-list" class="version-timeline-list">
+            <!-- Renderizado dinámicamente -->
+          </div>
+
+          <!-- Estado vacío -->
+          <div id="version-empty-state" class="version-empty-box hidden">
+            <div class="empty-icon-subtle">⏱</div>
+            <h4>NO HAY VERSIONES ANTERIORES REGISTRADAS</h4>
+            <p>Guarda el estado actual de tu partida usando el botón superior para crear tu primer punto de restauración.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-version-modal-open-folder" class="hud-btn hud-btn-outline">ABRIR CARPETA EN EXPLORADOR</button>
+          <button id="btn-version-modal-close" class="hud-btn hud-btn-primary">CERRAR</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

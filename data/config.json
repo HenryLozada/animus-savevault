@@ -1,0 +1,10 @@
+{
+  "enabled": true,
+  "interval_hours": 6,
+  "cloud_sync_enabled": false,
+  "cloud_provider": "onedrive",
+  "custom_cloud_path": "",
+  "last_auto_backup": null,
+  "last_backup_status": "Sin ejecuciones previas",
+  "retention_days": 15
+}
